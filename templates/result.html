@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Face Similarity Result</title>
+    <style>
+        h2 {
+            color: #17a2b8;
+            font-size: 30px;
+        }
+        h1 {
+            color: #ffc107;
+            font-size: 60px;
+        }
+        h2, h1 {
+            text-align: center;
+        border: 2px solid black;
+        padding: 10px;
+        margin: 20px;
+    }
+    </style>
+</head>
+<body>
+    <audio controls autoplay>
+        <source src="{{ url_for('static', filename='roll.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+<div class="container">
+    <h1 class="mt-5">けっかはっぴょう！！</h1>
+    <div class="row mt-5">
+        <div class="col">
+            <img src="{{ url_for('static', filename=image1_path) }}" alt="Image 1" class="img-fluid">
+        </div>
+        <div class="col">
+            <img src="{{ url_for('static', filename=image2_path) }}" alt="Image 2" class="img-fluid">
+        </div>
+    </div>
+    <h2 class="mt-5">そっくりさん度: {{ similarity_percentage }}%</h2>
+    {% if similarity_percentage >= 70 %}
+        <h1>同一人物じゃないですか？？</h1>
+    {% elif similarity_percentage >= 60 %}
+        <h1>そっくりさん!!</h1>
+    {% elif similarity_percentage >= 50 %}
+        <h1>これは、きょうだい！？</h1>
+    {% elif similarity_percentage >= 40 %}
+        <h1>もしかして、いとこかも？？</h1>
+    {% else %}
+        <h1>あかのたにん、、</h1>
+    {% endif %}
+    <button onclick="location.href='/'" class="btn btn-primary mt-5">Try Again</button>
+</div>
+</body>
+</html>
